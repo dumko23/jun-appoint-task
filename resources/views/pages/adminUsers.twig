@@ -1,0 +1,33 @@
+{% include 'layouts/header.twig' %}
+{% include 'layouts/adminNav.twig' %}
+
+<div class="container">
+    <div class="card p-3 mt-5">
+        <table id="table_id" class="display">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>ID</th>
+                <th>User Agent</th>
+                <th>Login</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user['name'] }}</td>
+                    <td>{{ user['id'] }}</td>
+                    <td>{{ user['agent'] }}</td>
+                    <td>{{ user['status'] }}</td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+</div>
+<script >
+    $(document).ready( function () {
+        $('#table_id').DataTable();
+    } );
+</script>

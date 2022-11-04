@@ -1,0 +1,36 @@
+{% include 'layouts/header.twig' %}
+{% include 'layouts/adminNav.twig' %}
+<div class="container">
+    <div class="card p-3 mt-5">
+        <table id="table_id" class="display">
+            <thead>
+            <tr>
+                <th>Session ID</th>
+                <th>IP</th>
+                <th>User Agent</th>
+                <th>Login</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for session in sessions %}
+                <tr>
+                    <td>{{ session['id'] }}</td>
+                    <td>{{ session['ip'] }}</td>
+                    <td>{{ session['agent'] }}</td>
+                    <td>{{ session['status'] ? session['userID'] : 'none' }}</td>
+
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#table_id').DataTable();
+    });
+</script>
+</body>
+</html>
