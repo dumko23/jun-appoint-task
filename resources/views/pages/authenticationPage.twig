@@ -23,7 +23,7 @@
                 {% include 'layouts/login.twig' %}
             </div>
             <div class="tab-pane " id="register" role="tabpanel" aria-labelledby="register-tab">
-                <form name="register">
+                <form name="register" onsubmit="return false" method="post">
                     <div class="mb-3">
                         <label for="emailRegister" class="form-label">Email address</label>
                         <input type="email" class="form-control" id="emailRegister" placeholder="name@example.com"

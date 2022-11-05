@@ -1,0 +1,91 @@
+{% include 'layouts/header.twig' %}
+{% include 'layouts/userNav.twig' %}
+
+<div class="card w-50 p-4 mx-auto mt-5">
+    <div class="text-center">
+        <h4>Password reset</h4>
+    </div>
+
+
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item nav-justified " role="presentation">
+            <button class="nav-link active btn-block" id="step-1-tab" data-toggle="tab" data-target="#step-1" type="button"
+                    role="tab" aria-controls="home" aria-selected="true">Step 1
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link btn-block" id="step-2-tab" data-toggle="tab" data-target="#step-2" type="button" role="tab"
+                    aria-controls="profile" aria-selected="false" disabled>Step 2
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link btn-block" id="step-3-tab" data-toggle="tab" data-target="#step-3" type="button" role="tab"
+                    aria-controls="messages" aria-selected="false" disabled>Step 3
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link btn-block" id="step-4-tab" data-toggle="tab" data-target="#step-4" type="button"
+                    role="tab" aria-controls="settings" aria-selected="false" disabled>Final Step
+            </button>
+        </li>
+    </ul>
+
+    <div class="tab-content">
+        <div class="tab-pane active" id="step-1" role="tabpanel" aria-labelledby="home-tab">
+            <form onsubmit="return false" name="resetEmail" method="post">
+                <div>
+                    Please, enter your email and press "Send code".
+                    We will send a verification code to this email. Copy it
+                    and follow further instructions.
+                </div>
+                <div class="my-3">
+                    <label for="email" class="form-label">Email address</label>
+                    <input type="email" class="form-control" id="email" placeholder="name@example.com" required>
+                </div>
+                <div class="">
+                    <button class="btn btn-primary" type="submit" id="step-1-complete" disabled>Send code</button>
+                </div>
+            </form>
+        </div>
+        <div class="tab-pane" id="step-2" role="tabpanel" aria-labelledby="profile-tab">
+            <form onsubmit="return false" name="resetVCode" method="post">
+                <div>
+                    Please, enter verification code that was sent to your email.
+                </div>
+                <div class="my-3">
+                    <label for="code" class="form-label">Email address</label>
+                    <input type="text" class="form-control" id="code" placeholder="V-CODE" required>
+                </div>
+                <div class="">
+                    <button class="btn btn-primary" type="submit" id="step-2-complete" disabled>Submit form</button>
+                </div>
+            </form>
+        </div>
+        <div class="tab-pane" id="step-3" role="tabpanel" aria-labelledby="messages-tab">
+            <form onsubmit="return false" name="resetPassword" method="post">
+                <div>
+                    Enter new password:
+                </div>
+                <div class="mb-3">
+                    <label for="passwordNew" class="form-label">New Password</label>
+                    <input type="password" class="form-control" id="passwordNew" required>
+                </div>
+                <div class="mb-3">
+                    <label for="passwordNewConfirm" class="form-label">Confirm new Password</label>
+                    <input type="password" class="form-control" id="passwordNewConfirm" required>
+                </div>
+                <div class="">
+                    <button class="btn btn-primary" type="submit" id="step-3-complete" disabled>Reset password</button>
+                </div>
+            </form>
+        </div>
+        <div class="tab-pane" id="step-4" role="tabpanel" aria-labelledby="settings-tab">
+            <h4>Login</h4>
+            {% include '/layouts/login.twig' %}
+        </div>
+    </div>
+
+</div>
+<script>
+
+</script>
