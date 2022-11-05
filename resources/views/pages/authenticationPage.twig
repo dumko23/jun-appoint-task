@@ -1,57 +1,52 @@
 {% include 'layouts/header.twig' %}
+{% include 'layouts/userNav.twig' %}
+
 
 <div class="container mt-5 w-50">
+    <div class="card w-75 p-4 mx-auto mt-5">
+        <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active btn-block" id="home-tab" data-toggle="tab" data-target="#login"
+                        type="button" role="tab" aria-controls="login" aria-selected="true">Login
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link  btn-block" id="profile-tab" data-toggle="tab" data-target="#register"
+                        type="button" role="tab" aria-controls="register" aria-selected="false">Register
+                </button>
+            </li>
 
-    <button class="btn btn-primary">
-        Login
-    </button>
-    <button class="btn btn-primary">
-        Register
-    </button>
+        </ul>
 
-    <form action="" name="login">
-        <div class="mb-3">
-            <label for="emailLogin" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="emailLogin" placeholder="name@example.com" required>
-            <div class="valid-feedback">
-                Looks good!
+        <div class="tab-content">
+            <div class="tab-pane active" id="login" role="tabpanel" aria-labelledby="login-tab">
+                {% include 'layouts/login.twig' %}
+            </div>
+            <div class="tab-pane " id="register" role="tabpanel" aria-labelledby="register-tab">
+                <form name="register">
+                    <div class="mb-3">
+                        <label for="emailRegister" class="form-label">Email address</label>
+                        <input type="email" class="form-control" id="emailRegister" placeholder="name@example.com"
+                               required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="nameRegister" placeholder="Obi-Wan Kenobi" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="passwordRegister" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="passwordRegister" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="passwordRegisterConfirm" class="form-label">Confirm Password</label>
+                        <input type="password" class="form-control" id="passwordRegisterConfirm" required>
+                    </div>
+                    <div class="">
+                        <button class="btn btn-primary" type="submit">Submit form</button>
+                    </div>
+                </form>
             </div>
         </div>
-
-        <div class="mb-3">
-            <label for="passwordLogin" class="form-label">Password</label>
-            <input type="password" class="form-control" id="passwordLogin" required>
-        </div>
-
-        <div class="col-12">
-            <button class="btn btn-primary" type="submit">Submit form</button>
-        </div>
-    </form>
-
-    <form name="register"  >
-        <div class="mb-3">
-            <label for="emailRegister" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="emailRegister" placeholder="name@example.com" required>
-            <div class="valid-feedback">
-                Looks good!
-            </div>
-        </div>
-        <div class="mb-3">
-            <label for="name" class="form-label">Name</label>
-            <input type="text" class="form-control" id="nameRegister" placeholder="Obi-Wan Kenobi" required>
-        </div>
-        <div class="mb-3">
-            <label for="passwordRegister" class="form-label">Password</label>
-            <input type="password" class="form-control" id="passwordRegister" required>
-        </div>
-        <div class="mb-3">
-            <label for="passwordRegisterConfirm" class="form-label">Confirm Password</label>
-            <input type="password" class="form-control" id="passwordRegisterConfirm" required>
-        </div>
-        <div class="col-12">
-            <button class="btn btn-primary" type="submit">Submit form</button>
-        </div>
-    </form>
-
-
+    </div>
 </div>
+
