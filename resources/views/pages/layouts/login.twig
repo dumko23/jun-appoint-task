@@ -1,6 +1,6 @@
-<form onsubmit="return false" method="post" name="login">
+<form onsubmit="return false" method="post" name="login" autocomplete="off">
     <div class="mb-3">
-        <label for="email" class="form-label">Email address</label>
+        <label for="email" class="form-label">Email</label>
         <input type="email" class="form-control" id="email" placeholder="name@example.com" required>
     </div>
 
@@ -12,8 +12,8 @@
         <a href="/reset">Forgot password?</a>
     </div>
 
-    <div class="">
-        <button class="btn btn-primary" type="submit">Submit form</button>
+    <div>
+        <button class="btn btn-primary" id="confirmLogin" type="submit" >Login</button>
     </div>
 
 </form>
