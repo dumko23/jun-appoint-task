@@ -6,14 +6,33 @@ volumes:
 
 services:
     slim:
-        image: php:8.0-alpine
+        build:
+            context: ./
+            dockerfile: ./Dockerfile
         working_dir: /var/www
-        command: php -S 0.0.0.0:8080 -t public
+        command: php -S 0.0.0.0:80 -t public
         environment:
             docker: "true"
         ports:
-            - 8080:8080
+            - "80:80"
         volumes:
             - .:/var/www
             - logs:/var/www/logs
-
+        links:
+            - mysql
+    mysql:
+        image: mysql:oracle
+        ports:
+            - "3306:3306"
+        environment:
+            MYSQL_USER: dumko
+            MYSQL_PASSWORD: mysqlpw
+            MYSQL_DATABASE: Users
+            MYSQL_ROOT_PASSWORD: mysqlpw
+        volumes:
+            - ./mysql:/var/lib/mysql
+    adminer:
+        image: adminer
+        restart: always
+        ports:
+            - "8080:8080"
