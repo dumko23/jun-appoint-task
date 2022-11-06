@@ -23,14 +23,14 @@
                 {% include 'layouts/login.twig' %}
             </div>
             <div class="tab-pane " id="register" role="tabpanel" aria-labelledby="register-tab">
-                <form name="register" onsubmit="return false" method="post">
+                <form name="register" onsubmit="return false" method="post" autocomplete="off">
                     <div class="mb-3">
                         <label for="emailRegister" class="form-label">Email address</label>
                         <input type="email" class="form-control" id="emailRegister" placeholder="name@example.com"
                                required>
                     </div>
                     <div class="mb-3">
-                        <label for="name" class="form-label">Name</label>
+                        <label for="nameRegister" class="form-label">Name</label>
                         <input type="text" class="form-control" id="nameRegister" placeholder="General Kenobi" required>
                     </div>
                     <div class="mb-3">
@@ -42,7 +42,7 @@
                         <input type="password" class="form-control" id="passwordRegisterConfirm" required>
                     </div>
                     <div class="">
-                        <button class="btn btn-primary" type="submit">Submit form</button>
+                        <button class="btn btn-primary" type="submit" id="registerConfirm">Register</button>
                     </div>
                 </form>
             </div>
