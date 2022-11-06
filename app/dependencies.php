@@ -27,4 +27,26 @@ return function (ContainerBuilder $containerBuilder) {
             return $logger;
         },
     ]);
+
+    $containerBuilder->addDefinitions([
+        PDO::class => function (ContainerInterface $c) {
+            $dbSettings = $c->get(SettingsInterface::class)->get('db');
+
+            $host = $dbSettings['host'];
+            $dbname = $dbSettings['database'];
+            $username = $dbSettings['username'];
+            $password = $dbSettings['password'];
+            $charset = $dbSettings['charset'];
+            $dsn = "mysql:host=$host;dbname=$dbname;charset=$charset";
+
+            try {
+                $pdo = new PDO($dsn, $username, $password);
+                $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+            } catch (PDOException $e) {
+                echo "Error in DB conn: " . $e->getMessage();
+            }
+
+            return $pdo;
+        }
+    ]);
 };
