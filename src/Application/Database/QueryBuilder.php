@@ -59,7 +59,7 @@ class QueryBuilder
             );
             $statement = $this->pdo->prepare($sql);
             return [
-                'status' => $statement->execute(array_values($data))
+                'data' => $statement->execute(array_values($data))
             ];
         } catch (Exception | PDOException $e) {
             return $this->formError($e);
@@ -87,7 +87,7 @@ class QueryBuilder
             );
             $statement = $this->pdo->prepare($sql);
             return [
-                'status' => $statement->execute(array_values($data))
+                'data' => $statement->execute(array_values($data))
             ];
         } catch (Exception | PDOException $e) {
             return $this->formError($e);
@@ -113,7 +113,7 @@ class QueryBuilder
             );
             $statement = $this->pdo->prepare($sql);
             return [
-                'status' => $statement->execute()
+                'data' => $statement->execute()
             ];
         } catch (Exception | PDOException $e) {
             return $this->formError($e);

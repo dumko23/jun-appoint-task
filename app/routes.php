@@ -64,14 +64,16 @@ return function (App $app) {
 
 
     $app->group('/api', function (Group $group) {
-        $group->post('/loginUser', 'App\Application\Controllers\LoginController:doLogin')
-            ->setName('apiLogin');
+//        $group->post('/loginUser', 'App\Application\Controllers\LoginController:doLogin')
+//            ->setName('apiLogin');
 //        $group->post('/records', 'App\Application\Controllers\RecordsController:sendData')
 //            ->setName('apiSend');
         $group->post('/adminLogin', '\App\Application\Controllers\AdminController:doLogin')
             ->setName('adminLogin');
         $group->post('/adminLogout', '\App\Application\Controllers\AdminController:doLogout')
             ->setName('adminLogout');
+        $group->post('/deleteUser', '\App\Application\Controllers\AdminController:deleteUser')
+            ->setName('deleteUser');
     });
 
 

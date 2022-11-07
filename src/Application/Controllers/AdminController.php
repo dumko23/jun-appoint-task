@@ -19,6 +19,8 @@ class AdminController extends Controller
 
     public function adminLogin(Request $request, Response $response): Response
     {
+        session_start();
+
         $data = [
             'name' => '',
             'title' => 'Admin - Login',
@@ -47,7 +49,8 @@ class AdminController extends Controller
         $data = [
             'title' => 'Admin - Users',
             'name' => 'stranger',
-            'script' => '../js/admin.js'
+            'script' => '../js/admin.js',
+            'users' => $this->getUsers()
         ];
         session_start();
         if (!empty($_SESSION['admin_name'])) {
@@ -62,17 +65,28 @@ class AdminController extends Controller
         return $this->model->doLogin($request, $response);
     }
 
-    public function doLogout(Request $request, Response $response)
+    public function doLogout(Request $request, Response $response): Response
     {
         session_start();
         $_SESSION = [];
         print_r($_COOKIE);
         unset($_COOKIE['name']);
         unset($_COOKIE['PHPSESSID']);
+        print_r($_COOKIE);
         setcookie('PHPSESSID', null, -1, '/');
         setcookie('name', null, -1, '/');
         session_destroy();
 //        header('Location: /admin');
         return $response;
+    }
+
+    public function getUsers()
+    {
+        return $this->model->getUsers();
+    }
+
+    public function deleteUser(Request $request, Response $response): Response
+    {
+        return $this->model->deleteUser($request, $response);
     }
 }

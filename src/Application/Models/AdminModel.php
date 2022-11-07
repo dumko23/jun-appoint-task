@@ -7,7 +7,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 
 class AdminModel extends Model
 {
-    public function doLogin(Request $request, Response $response)
+    public function doLogin(Request $request, Response $response): Response
     {
         $data = $request->getParsedBody()['request'];
 
@@ -26,5 +26,24 @@ class AdminModel extends Model
         return $response
             ->withHeader('content-type', 'application/json')
             ->withStatus(403);
+    }
+
+    public function getUsers()
+    {
+        return $this->getData('id, name, email', 'Users.users')['data'];
+    }
+
+    public function deleteUser(Request $request, Response $response): Response
+    {
+        $id = $request->getParsedBody()['request'];
+        if (intval($this->delete('id', $id, 'Users.users')['data']) > 0) {
+            return $response
+                ->withHeader('content-type', 'application/json')
+                ->withStatus(200);
+        } else {
+            return $response
+                ->withHeader('content-type', 'application/json')
+                ->withStatus(400);
+        }
     }
 }

@@ -3,22 +3,26 @@
 
 <div class="container">
     <div class="card p-3 mt-5">
-        <table id="table_id" class="display">
+        <table id="table_id" class="display table table-striped table-bordered">
+
             <thead>
             <tr>
                 <th>Name</th>
                 <th>ID</th>
-                <th>User Agent</th>
-                <th>Login</th>
+                <th>Email</th>
             </tr>
             </thead>
             <tbody>
             {% for user in users %}
-                <tr>
+                <tr id="user{{ user['id'] }}">
                     <td>{{ user['name'] }}</td>
                     <td>{{ user['id'] }}</td>
-                    <td>{{ user['agent'] }}</td>
-                    <td>{{ user['status'] }}</td>
+                    <td class="d-flex flex-row justify-content-between">
+                        <span>{{ user['email'] }}</span>
+                        <button class="deleteThis" id="deleteUser_{{ user['id'] }}">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </td>
                 </tr>
             {% endfor %}
 
@@ -26,8 +30,3 @@
         </table>
     </div>
 </div>
-<script >
-    $(document).ready( function () {
-        $('#table_id').DataTable();
-    } );
-</script>
