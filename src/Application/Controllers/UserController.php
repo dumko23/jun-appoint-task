@@ -2,7 +2,6 @@
 
 namespace App\Application\Controllers;
 
-use App\Application\Models\AdminModel;
 use App\Application\Models\UserModel;
 use PDO;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -25,5 +24,20 @@ class UserController extends Controller
     public function doRegister(Request $request, Response $response): Response
     {
         return $this->model->doRegister($request, $response);
+    }
+
+    public function sendMail(Request $request, Response $response): Response
+    {
+        return $this->model->sendMail($request, $response);
+    }
+
+    public function acceptCode(Request $request, Response $response): Response
+    {
+        return $this->model->acceptCode($request, $response);
+    }
+
+    public function resetPassword(Request $request, Response $response): Response
+    {
+        return $this->model->resetPassword($request, $response);
     }
 }

@@ -39,11 +39,88 @@ function step(prev, next) {
 }
 
 $("#step-1-complete").on('click', function () {
-    step(1, 2);
+    sendMail();
+
 })
 $("#step-2-complete").on('click', function () {
-    step(2, 3);
+    checkCode();
 })
 $("#step-3-complete").on('click', function () {
-    step(3, 4);
+    resetPass();
 })
+
+
+function sendMail() {
+    let email = {
+        'email': $('#email').val()
+    }
+    timeToResend();
+
+    $.post("/api/sendMail", {'request': email}, function (data) {
+        console.log('login success');
+        console.log(JSON.parse(data))
+    }).always(function (jqXHR) {
+        console.log(jqXHR.status);
+        if (jqXHR.status === 200) {
+            console.log('mail sent');
+            step(1, 2);
+        }
+    });
+}
+
+function timeToResend() {
+    let sec = 30;
+    let timer = setInterval(function () {
+        $('#seconds-left').text(sec);
+        sec--;
+        if (sec < 0) {
+            clearInterval(timer);
+            $('#resend-btn').prop("disabled", false);
+        }
+    }, 1000);
+}
+
+$('#resend-btn').on('click', function () {
+    sendMail();
+    $('#resend-btn').prop("disabled", true);
+})
+
+function checkCode() {
+    let code = {
+        'email': $('#email').val(),
+        'code': $('#code').val()
+    }
+    $.post("/api/acceptCode", {'request': code}, function (data) {
+        console.log('login success');
+        console.log(JSON.parse(data))
+    }).always(function (jqXHR) {
+        console.log(jqXHR.status);
+        if (jqXHR.status === 200) {
+            console.log('code approved');
+            step(2, 3);
+        }
+    });
+}
+
+function resetPass() {
+
+    if ($('#passwordNew').val() === $('#passwordNewConfirm').val()) {
+        let request = {
+            'email': $('#email').val(),
+            'code': $('#code').val(),
+            'password': $('#passwordNew').val(),
+        }
+        $.post("/api/resetPass", {'request': request}, function (data) {
+            console.log('password reset');
+            console.log(JSON.parse(data))
+        }).always(function (jqXHR) {
+            console.log(jqXHR.status);
+            if (jqXHR.status === 200) {
+                window.location.replace("/auth");
+            }
+        });
+    } else {
+        console.log("password doesn't match");
+        return false;
+    }
+}

@@ -77,6 +77,11 @@ class QueryBuilder
      */
     public function updateDB(string $dbAndTable, array $data, string $where, array $searchItem): array
     {
+        foreach ($searchItem as &$value) {
+            if (gettype($value) === 'string') {
+                $value = "'$value'";
+            }
+        }
         try {
             $sql = sprintf(
                 "update %s set %s  where %s in (%s)",

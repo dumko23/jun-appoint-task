@@ -78,6 +78,12 @@ return function (App $app) {
             ->setName('userLogin');
         $group->post('/userRegister', '\App\Application\Controllers\UserController:doRegister')
             ->setName('userRegister');
+        $group->post('/sendMail', '\App\Application\Controllers\UserController:sendMail')
+            ->setName('sendMail');
+        $group->post('/acceptCode', '\App\Application\Controllers\UserController:acceptCode')
+            ->setName('acceptCode');
+        $group->post('/resetPass', '\App\Application\Controllers\UserController:resetPassword')
+            ->setName('resetPass');
     });
 
 
