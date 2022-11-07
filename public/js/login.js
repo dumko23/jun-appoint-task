@@ -7,8 +7,17 @@ function formlogin() {
 
 function login() {
     let request = formlogin();
-    $.post("loginUser", {'request': request}, function (data) {
+    $.post("/api/userLogin", {'request': request}, function (data) {
         console.log('login success');
         console.log(JSON.parse(data))
-    })
+    }).always(function (jqXHR) {
+        console.log(jqXHR.status);
+        if (jqXHR.status === 200) {
+            window.location.replace("/");
+        }
+    });
 }
+
+$('#confirmLogin').on('click', function(){
+    login()
+})

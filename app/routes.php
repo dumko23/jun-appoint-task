@@ -74,6 +74,8 @@ return function (App $app) {
             ->setName('adminLogout');
         $group->post('/deleteUser', '\App\Application\Controllers\AdminController:deleteUser')
             ->setName('deleteUser');
+        $group->post('/userLogin', '\App\Application\Controllers\UserController:doLogin')
+            ->setName('userLogin');
     });
 
 
