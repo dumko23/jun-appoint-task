@@ -26,4 +26,21 @@ class UserModel extends Model
             ->withHeader('content-type', 'application/json')
             ->withStatus(403);
     }
+
+    public function doRegister(Request $request, Response $response): Response
+    {
+        $data = $request->getParsedBody()['request'];
+        $data['password'] = password_hash($data['password'], PASSWORD_BCRYPT);
+
+        $user = $this->add($data, 'Users.users');
+        if (in_array('data', $user)) {
+            return $response
+                ->withHeader('content-type', 'application/json')
+                ->withStatus(200);
+        }
+        $response->getBody()->write(json_encode($user));
+        return $response
+            ->withHeader('content-type', 'application/json')
+            ->withStatus(403);
+    }
 }

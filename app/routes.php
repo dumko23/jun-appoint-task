@@ -76,6 +76,8 @@ return function (App $app) {
             ->setName('deleteUser');
         $group->post('/userLogin', '\App\Application\Controllers\UserController:doLogin')
             ->setName('userLogin');
+        $group->post('/userRegister', '\App\Application\Controllers\UserController:doRegister')
+            ->setName('userRegister');
     });
 
 

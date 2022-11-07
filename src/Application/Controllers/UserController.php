@@ -21,4 +21,9 @@ class UserController extends Controller
     {
         return $this->model->doLogin($request, $response);
     }
+
+    public function doRegister(Request $request, Response $response): Response
+    {
+        return $this->model->doRegister($request, $response);
+    }
 }
