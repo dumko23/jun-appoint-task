@@ -8,7 +8,7 @@ function formlogin() {
 function login() {
     let request = formlogin();
     if (request['email'] !== '' && request['password'] !== '') {
-        $.post("/api/adminLogin", {'request': request}, function (data) {
+        $.post("/admin/adminLogin", {'request': request}, function (data) {
             console.log('login success');
             console.log(JSON.parse(data))
         })

@@ -24,7 +24,8 @@ class AdminController extends Controller
         $data = [
             'name' => '',
             'title' => 'Admin - Login',
-            'script' => '../js/adminLogin.js'
+            'script' => '../js/adminLogin.js',
+            'page' => 'admin'
         ];
         return $this->renderPage($request, $response, 'adminLogin.twig', $data);
     }

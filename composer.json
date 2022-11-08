@@ -26,6 +26,7 @@
     "ext-json": "*",
     "ext-pdo": "*",
     "ext-random": "*",
+    "akrabat/ip-address-middleware": "^2.1",
     "monolog/monolog": "^2.8",
     "php-di/php-di": "^6.4",
     "phpmailer/phpmailer": "^6.6",

@@ -10,10 +10,13 @@ class HomeController extends Controller
 {
     public function home(Request $request, Response $response): Response
     {
+        $cookie = $request->getAttribute('session_custom');
+        $ip = $request->getAttribute('ip_address');
         $data = [
             'name' => '',
-            'id' => session_id(),
-            'title' => 'Home'
+            'id' => $_COOKIE['session_id'],
+            'title' => 'Home',
+            'attr' => $ip
         ];
         return $this->renderPage($request, $response, 'index.twig', $data);
     }
@@ -22,7 +25,8 @@ class HomeController extends Controller
     {
         $data = [
             'title' => 'Home - Auth',
-            'script' => '../js/login.js'
+            'script' => '../js/login.js',
+            'page' => 'user'
         ];
         return $this->renderPage($request, $response, 'authenticationPage.twig', $data);
     }

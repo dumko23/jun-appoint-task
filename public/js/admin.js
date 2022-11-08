@@ -30,7 +30,7 @@ function createTable() {
 
 
 $('#logout').on('click', function () {
-    $.post("/api/adminLogout", {'request': 'request'}, function (data) {
+    $.post("/admin/adminLogout", {'request': 'request'}, function (data) {
 
         console.log(JSON.parse(data))
     })
@@ -56,7 +56,7 @@ $('tbody tr').on('click', function () {
 })
 
 function deleteUsers(id) {
-    $.post("/api/deleteUser", {'request': id}, function (data) {
+    $.post("/admin/deleteUser", {'request': id}, function (data) {
         console.log(JSON.parse(data))
     }).always(function (jqXHR) {
         console.log(jqXHR.status);
