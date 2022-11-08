@@ -28,7 +28,8 @@ class AdminRoutesMiddleware implements Middleware
             'sendMail',
             'acceptCode',
             'resetPass',
-            'adminLogin'
+            'adminLogin',
+            'userLogout'
         ];
 
         $session = $request->getAttribute('session_list');
