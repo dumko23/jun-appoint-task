@@ -9,6 +9,8 @@
             <tr>
                 <th>Name</th>
                 <th>ID</th>
+                <th>Failed pass-reset until blocked</th>
+                <th>Blocked</th>
                 <th>Email</th>
             </tr>
             </thead>
@@ -17,6 +19,8 @@
                 <tr id="user{{ user['id'] }}">
                     <td>{{ user['name'] }}</td>
                     <td>{{ user['id'] }}</td>
+                    <td>{{ user['fails_left'] }}</td>
+                    <td>{{ user['blocked'] }}</td>
                     <td class="d-flex flex-row justify-content-between">
                         <span>{{ user['email'] }}</span>
                         <button class="deleteThis" id="deleteUser_{{ user['id'] }}">

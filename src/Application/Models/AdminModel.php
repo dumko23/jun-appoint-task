@@ -30,7 +30,7 @@ class AdminModel extends Model
 
     public function getUsers()
     {
-        return $this->getData('id, name, email', 'Users.users')['data'];
+        return $this->getData('id, name, email, fails_left, blocked', 'Users.users')['data'];
     }
 
     public function deleteUser(Request $request, Response $response): Response
