@@ -72,6 +72,7 @@ class AdminController extends Controller
     {
         $_SESSION = [];
         unset($_COOKIE['session_id']);
+        unset($_COOKIE['session_name']);
         unset($_COOKIE['PHPSESSID']);
 
         session_destroy();
