@@ -10,26 +10,36 @@ class HomeController extends Controller
 {
     public function home(Request $request, Response $response): Response
     {
-        $sessions = $request->getAttribute('session_list');
+        $sessions = $request->getAttribute('session_list')['sessions'][substr(session_id(), 0, 6)];
 
-
+//        print_r($sessions);
+//        die();
         $data = [
+            'script' => '../js/index.js',
             'name' => empty($sessions['user_name']) ? 'stranger' : $sessions['user_name'],
             'title' => 'Home',
-            'sessions' => $sessions,
-            'data' => json_encode($sessions)
+            'session' => $sessions,
+            'data' => json_encode($sessions),
+            'logged_in' => empty($sessions['user_name']) ? false : $sessions['user_name']
         ];
         return $this->renderPage($request, $response, 'index.twig', $data);
     }
 
     public function loginPage(Request $request, Response $response): Response
     {
-        $data = [
-            'title' => 'Home - Auth',
-            'script' => '../js/login.js',
-            'page' => 'user'
-        ];
-        return $this->renderPage($request, $response, 'authenticationPage.twig', $data);
+        $sessions = $request->getAttribute('session_list')['sessions'][$_COOKIE['session_name']];
+        if (empty($sessions['user_name'])) {
+            $data = [
+                'title' => 'Home - Auth',
+                'script' => '../js/login.js',
+                'page' => 'user'
+            ];
+            return $this->renderPage($request, $response, 'authenticationPage.twig', $data);
+        } else {
+
+            return $response->withHeader('Location', '/')->withStatus(302);
+        }
+
     }
 
     public function resetPage(Request $request, Response $response): Response
