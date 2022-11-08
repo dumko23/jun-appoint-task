@@ -17,7 +17,6 @@ class SessionsMiddleware implements Middleware
         session_start();
 
         if (empty($_COOKIE['PHPSESSID'])) {
-//            session_create_id();
             $_SESSION['sessions'][substr(session_id(), 0, 6)]['session_name'] = substr(session_id(), 0, 6);
             $_SESSION['sessions'][substr(session_id(), 0, 6)]['session_id'] = session_id();
 
