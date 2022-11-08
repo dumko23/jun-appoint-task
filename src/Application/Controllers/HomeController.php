@@ -14,9 +14,10 @@ class HomeController extends Controller
         $ip = $request->getAttribute('ip_address');
         $data = [
             'name' => '',
-            'id' => $_COOKIE['session_id'],
+            'id' => $cookie['session_id'],
             'title' => 'Home',
-            'attr' => $ip
+            'attr' => $ip,
+            'sessions' => json_encode($request->getAttribute('session_list'))
         ];
         return $this->renderPage($request, $response, 'index.twig', $data);
     }

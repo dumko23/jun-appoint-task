@@ -23,10 +23,10 @@ return function (ContainerBuilder $containerBuilder) {
                 ],
                 'db' => [
                     'driver' => 'mysql',
-                    'host' => 'mysql:3306',
-                    'username' => 'dumko',
+                    'host' => $_ENV['DB_HOST'],
+                    'username' => $_ENV['DB_USER'],
                     'database' => '',
-                    'password' => 'mysqlpw',
+                    'password' => $_ENV['DB_PASS'],
                     'charset' => 'utf8mb4',
                     'collation' => 'utf8mb4_unicode_ci'
                 ],

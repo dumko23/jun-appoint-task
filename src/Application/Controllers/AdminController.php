@@ -19,8 +19,6 @@ class AdminController extends Controller
 
     public function adminLogin(Request $request, Response $response): Response
     {
-        session_start();
-
         $data = [
             'name' => '',
             'title' => 'Admin - Login',
@@ -32,31 +30,32 @@ class AdminController extends Controller
 
     public function adminSessions(Request $request, Response $response): Response
     {
+        $session = $request->getAttribute('session_list');
+
         $data = [
-            'name' => 'stranger',
+            'name' => $session['admin_name'],
             'title' => 'Admin - Sessions',
-            'script' => '../js/admin.js'
+            'script' => '../js/admin.js',
+            'sessions' => $request->getAttribute('session_list')
         ];
 
-        session_start();
-        if (!empty($_SESSION['admin_name'])) {
-            $data['name'] = $_SESSION['admin_name'];
-        }
+//        session_start();
+//        if (!empty($_SESSION['admin_name'])) {
+//            $data['name'] = $_SESSION['admin_name'];
+//        }
         return $this->renderPage($request, $response, 'adminSessions.twig', $data);
     }
 
     public function adminUsers(Request $request, Response $response): Response
     {
+        $session = $request->getAttribute('session_list');
         $data = [
             'title' => 'Admin - Users',
-            'name' => 'stranger',
+            'name' => $session['admin_name'],
             'script' => '../js/admin.js',
             'users' => $this->getUsers()
         ];
-        session_start();
-        if (!empty($_SESSION['admin_name'])) {
-            $data['name'] = $_SESSION['admin_name'];
-        }
+
 
         return $this->renderPage($request, $response, 'adminUsers.twig', $data);
     }
@@ -68,17 +67,15 @@ class AdminController extends Controller
 
     public function doLogout(Request $request, Response $response): Response
     {
-        session_start();
         $_SESSION = [];
-        print_r($_COOKIE);
-        unset($_COOKIE['name']);
+        unset($_COOKIE['session_id']);
         unset($_COOKIE['PHPSESSID']);
-        print_r($_COOKIE);
-        setcookie('PHPSESSID', null, -1, '/');
-        setcookie('name', null, -1, '/');
+
         session_destroy();
-//        header('Location: /admin');
-        return $response;
+
+        return $response
+        ->withHeader('content-type', 'application/json')
+        ->withStatus(200);
     }
 
     public function getUsers()

@@ -2,7 +2,7 @@
 {% include 'layouts/adminNav.twig' %}
 <div class="container">
     <div class="card p-3 mt-5">
-        <table id="table_id" class="display">
+        <table id="table_id" class="display table table-striped table-bordered">
             <thead>
             <tr>
                 <th>Session ID</th>
@@ -14,11 +14,10 @@
             <tbody>
             {% for session in sessions %}
                 <tr>
-                    <td>{{ session['id'] }}</td>
-                    <td>{{ session['ip'] }}</td>
-                    <td>{{ session['agent'] }}</td>
+                    <td>{{ session['session_name'] }}</td>
+                    <td>{{ session['user_ip'] }}</td>
+                    <td>{{ session['user_agent'] }}</td>
                     <td>{{ session['status'] ? session['userID'] : 'none' }}</td>
-
                 </tr>
             {% endfor %}
 
@@ -27,10 +26,5 @@
     </div>
 </div>
 
-<script>
-    $(document).ready(function () {
-        $('#table_id').DataTable();
-    });
-</script>
 </body>
 </html>

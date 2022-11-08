@@ -17,8 +17,10 @@ return function (App $app) {
         return $response;
     });
 
+
+
     $app->get('/', '\App\Application\Controllers\HomeController:home')
-        ->setName('mainPage')->add(SessionsMiddleware::class);
+        ->setName('mainPage');
     $app->get('/auth', '\App\Application\Controllers\HomeController:loginPage')
         ->setName('userAuth');
     $app->get('/reset', '\App\Application\Controllers\HomeController:resetPage')
@@ -27,10 +29,12 @@ return function (App $app) {
     $app->get('/admin', '\App\Application\Controllers\AdminController:adminLogin')
         ->setName('adminAuth');
 
-    $app->get('/admin/sessions', '\App\Application\Controllers\AdminController:adminSessions');
+    $app->get('/admin/sessions', '\App\Application\Controllers\AdminController:adminSessions')
+    ->setName('adminSessions');
 
 
-    $app->get('/admin/users', '\App\Application\Controllers\AdminController:adminUsers');
+    $app->get('/admin/users', '\App\Application\Controllers\AdminController:adminUsers')
+        ->setName('adminUsers');
 
 
     $app->group('/api', function (Group $group) {
