@@ -67,7 +67,7 @@ class UserModel extends Model
             $code = $email['reset_code'];
             $emailTo = $email['email'];
             $subject = "Reset code";
-            $message = "Please, copy the code below and paste it into the form at the reset page:\r\n$code";
+            $message = "Please, copy the code and paste it into the form at the reset page:\r\n$code";
             $message = wordwrap($message, 70, "\r\n");
 
             $mail = new PHPMailer(true);
@@ -78,14 +78,14 @@ class UserModel extends Model
                 $mail->isSMTP();                                            //Send using SMTP
                 $mail->Host = 'smtp.gmail.com';                       //Set the SMTP server to send through
                 $mail->SMTPAuth = true;                                   //Enable SMTP authentication
-                $mail->Username = 'mailsender.parhomenko@gmail.com';      //SMTP username mailsender.parhomenko@gmail.com
-                $mail->Password = '';                         //SMTP password 
+                $mail->Username = $_ENV['SMTP_MAIL'];      //SMTP username mailsender.parhomenko@gmail.com
+                $mail->Password = $_ENV['SMTP_PASS'];                         //SMTP password
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
                 $mail->Port = 465;                                    //TCP port to connect to;
                 // use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
                 //Recipients
-                $mail->setFrom('mailsender.parhomenko@gmail.com', 'Mailer');
+                $mail->setFrom($_ENV['SMTP_MAIL'], 'Mailer');
                 $mail->addAddress($emailTo);     //Add a recipient
 
                 //Content

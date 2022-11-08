@@ -31,7 +31,7 @@
     <div class="tab-content">
         <div class="tab-pane active" id="step-1" role="tabpanel" aria-labelledby="home-tab">
             <form onsubmit="return false" name="resetEmail" method="post">
-                <div>
+                <div class="mt-2">
                     Please, enter your email and press "Send code".
                     We will send a verification code to this email. Copy it
                     and follow further instructions.
@@ -47,7 +47,7 @@
         </div>
         <div class="tab-pane" id="step-2" role="tabpanel" aria-labelledby="profile-tab">
             <form onsubmit="return false" name="resetVCode" method="post">
-                <div>
+                <div class="mt-2">
                     Please, enter verification code that was sent to your email. We can resend code in <span
                             id="seconds-left"></span> seconds.
                 </div>
@@ -59,13 +59,13 @@
                     <input type="text" class="form-control" id="code" placeholder="V-CODE" required>
                 </div>
                 <div class="">
-                    <button class="btn btn-primary" type="submit" id="step-2-complete" disabled>Submit form</button>
+                    <button class="btn btn-primary" type="submit" id="step-2-complete" disabled>Verify code</button>
                 </div>
             </form>
         </div>
         <div class="tab-pane" id="step-3" role="tabpanel" aria-labelledby="messages-tab">
             <form onsubmit="return false" name="resetPassword" method="post">
-                <div>
+                <div class="mt-2">
                     Enter new password:
                 </div>
                 <div class="mb-3">
