@@ -13,6 +13,8 @@ class UserModel extends Model
     public function doLogin(Request $request, Response $response): Response
     {
         $data = $request->getParsedBody()['request'];
+//        $session = $request->getAttribute('session_list')['sessions'][$_COOKIE['session_name']];
+
 
         $user = $this->getData('password, id, name, blocked', 'Users.users', 'where email = ', $data['email']);
 
@@ -23,10 +25,12 @@ class UserModel extends Model
         }
 
         if (password_verify($data['password'], $user['data'][0]['password'])) {
-            session_start();
             $_SESSION["user_id"] = $user['data'][0]['id'];
             $_SESSION["user_name"] = $user['data'][0]['name'];
-//            setcookie('name', $admin['data'][0]['name'], time() + 1800);
+
+            $_SESSION['sessions'][$_COOKIE['session_name']]['user_id'] = $user['data'][0]['id'];
+            print_r($_SESSION);
+            die();
             return $response
                 ->withHeader('content-type', 'application/json')
                 ->withStatus(200);

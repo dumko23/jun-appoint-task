@@ -15,21 +15,24 @@ class SessionsMiddleware implements Middleware
     public function process(Request $request, RequestHandler $handler): Response
     {
         session_start();
+
         if (empty($_COOKIE['PHPSESSID'])) {
-            session_create_id();
-            $_SESSION[substr(session_id(), 0, 6)]['session_name'] = substr(session_id(), 0, 6);
+//            session_create_id();
+            $_SESSION['sessions'][substr(session_id(), 0, 6)]['session_name'] = substr(session_id(), 0, 6);
+            $_SESSION['sessions'][substr(session_id(), 0, 6)]['session_id'] = session_id();
+
+            setcookie('session_name', substr(session_id(), 0, 6), time() + 1800);
             setcookie('session_id', session_id(), time() + 1800);
         }
 
+        $_SESSION['sessions'][substr(session_id(), 0, 6)]['ip'] = $request->getAttribute('ip_address');
+        $_SESSION['sessions'][substr(session_id(), 0, 6)]['user_agent'] = $request->getHeader('User-Agent')[0];
         setcookie('session_id', session_id(), time() + 1800);
+        setcookie('session_name', substr(session_id(), 0, 6), time() + 1800);
 
-//        session_start();
-//        setcookie('id', SID, time() + 1800);
-//
-        $request = $request->withAttribute('session_custom', $_COOKIE);
+
         $request = $request->withAttribute('session_list', $_SESSION);
 
-//        $request = $request->withAttribute('sessionID', $_COOKIE['id']);
         return $handler->handle($request);
     }
 }

@@ -8,16 +8,16 @@
                 <th>Session ID</th>
                 <th>IP</th>
                 <th>User Agent</th>
-                <th>Login</th>
+                <th>Login ID</th>
             </tr>
             </thead>
             <tbody>
             {% for session in sessions %}
                 <tr>
                     <td>{{ session['session_name'] }}</td>
-                    <td>{{ session['user_ip'] }}</td>
+                    <td>{{ session['ip'] }}</td>
                     <td>{{ session['user_agent'] }}</td>
-                    <td>{{ session['status'] ? session['userID'] : 'none' }}</td>
+                    <td>{{ session['user_id'] ? session['user_id'] : 'none' }}</td>
                 </tr>
             {% endfor %}
 

@@ -22,7 +22,7 @@ class AdminController extends Controller
         $loggedIn = empty($_SESSION['admin_name']);
 
         $data = [
-            'name' => empty($_SESSION['admin_name'])? '': $_SESSION['admin_name'],
+            'name' => empty($_SESSION['admin_name']) ? '' : $_SESSION['admin_name'],
             'title' => 'Admin - Login',
             'script' => '../js/adminLogin.js',
             'page' => 'admin',
@@ -39,7 +39,7 @@ class AdminController extends Controller
             'name' => $session['admin_name'],
             'title' => 'Admin - Sessions',
             'script' => '../js/admin.js',
-            'sessions' => $request->getAttribute('session_list')
+            'sessions' => $request->getAttribute('session_list')['sessions']
         ];
 
 //        session_start();

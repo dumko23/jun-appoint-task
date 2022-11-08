@@ -10,14 +10,14 @@ class HomeController extends Controller
 {
     public function home(Request $request, Response $response): Response
     {
-        $cookie = $request->getAttribute('session_custom');
-        $ip = $request->getAttribute('ip_address');
+        $sessions = $request->getAttribute('session_list');
+
+
         $data = [
-            'name' => '',
-            'id' => $cookie['session_id'],
+            'name' => empty($sessions['user_name']) ? 'stranger' : $sessions['user_name'],
             'title' => 'Home',
-            'attr' => $ip,
-            'sessions' => json_encode($request->getAttribute('session_list'))
+            'sessions' => $sessions,
+            'data' => json_encode($sessions)
         ];
         return $this->renderPage($request, $response, 'index.twig', $data);
     }

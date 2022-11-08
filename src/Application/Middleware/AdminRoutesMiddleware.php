@@ -15,19 +15,6 @@ class AdminRoutesMiddleware implements Middleware
      */
     public function process(Request $request, RequestHandler $handler): Response
     {
-//        session_start();
-
-//        if (empty($_COOKIE['PHPSESSID'])) {
-//            session_create_id();
-//            $_SESSION[substr(session_id(), 0, 6)]['session_name'] = substr(session_id(), 0, 6);
-//            setcookie('session_id', session_id(), time() + 1800);
-//        }
-//        setcookie('session_id', session_id(), time() + 1800);
-//        $request = $request->withAttribute('session_custom', $_COOKIE);
-//        $request = $request->withAttribute('session_list', $_SESSION);
-
-
-
         $routeContext = RouteContext::fromRequest($request);
         $route = $routeContext->getRoute();
         $routeName = $route->getName();

@@ -4,11 +4,11 @@
 <div class="container ">
     <div class="card w-50 text-center mt-5 mx-auto">
         <h4 class="mt-3">Slim&Twig project</h4>
-        <h5 class="my-3">Hello there, {{ name ? name : 'stranger' }}!</h5>
-        <h5 class="my-3">Session id: {{ id }}</h5>
-        <h5>Ip: {{ attr }}</h5>
+        <h5 class="my-3">Hello there, {{ name }}!</h5>
+        <h5 class="my-3">Session id: {{ sessions.id }}</h5>
+        <h5>Ip: {{ sessions.ip }}</h5>
         <h5>
-            {{ sessions }}
+            {{ data }}
         </h5>
     </div>
 
