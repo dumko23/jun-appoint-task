@@ -29,8 +29,7 @@ class UserModel extends Model
             $_SESSION["user_name"] = $user['data'][0]['name'];
 
             $_SESSION['sessions'][$_COOKIE['session_name']]['user_id'] = $user['data'][0]['id'];
-            print_r($_SESSION);
-            die();
+
             return $response
                 ->withHeader('content-type', 'application/json')
                 ->withStatus(200);
