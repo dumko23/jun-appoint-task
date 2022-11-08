@@ -19,11 +19,14 @@ class AdminController extends Controller
 
     public function adminLogin(Request $request, Response $response): Response
     {
+        $loggedIn = empty($_SESSION['admin_name']);
+
         $data = [
-            'name' => '',
+            'name' => empty($_SESSION['admin_name'])? '': $_SESSION['admin_name'],
             'title' => 'Admin - Login',
             'script' => '../js/adminLogin.js',
-            'page' => 'admin'
+            'page' => 'admin',
+            'logged' => $loggedIn
         ];
         return $this->renderPage($request, $response, 'adminLogin.twig', $data);
     }
