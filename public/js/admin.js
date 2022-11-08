@@ -24,8 +24,9 @@ function createTable() {
         rowReorder: true
 
     });
-
-    $("#table_id_wrapper .row:first-child").after(button);
+    if (!window.location.href.includes('sessions')) {
+        $("#table_id_wrapper .row:first-child").after(button);
+    }
 }
 
 
