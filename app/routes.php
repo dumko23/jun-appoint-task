@@ -18,7 +18,6 @@ return function (App $app) {
     });
 
 
-
     $app->get('/', '\App\Application\Controllers\HomeController:home')
         ->setName('mainPage');
     $app->get('/auth', '\App\Application\Controllers\HomeController:loginPage')
@@ -30,7 +29,7 @@ return function (App $app) {
         ->setName('adminAuth');
 
     $app->get('/admin/sessions', '\App\Application\Controllers\AdminController:adminSessions')
-    ->setName('adminSessions');
+        ->setName('adminSessions');
 
 
     $app->get('/admin/users', '\App\Application\Controllers\AdminController:adminUsers')
@@ -48,6 +47,8 @@ return function (App $app) {
             ->setName('acceptCode');
         $group->post('/resetPass', '\App\Application\Controllers\UserController:resetPassword')
             ->setName('resetPass');
+        $group->post('/userLogout', '\App\Application\Controllers\UserController:doLogout')
+            ->setName('userLogout');
     });
 
     $app->group('/admin', function (Group $group) {
