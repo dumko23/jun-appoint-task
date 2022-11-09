@@ -66,12 +66,9 @@ class AdminController extends Controller
 
     public function doLogout(Request $request, Response $response): Response
     {
-        $_SESSION['sessions'][substr(session_id(), 0, 6)] = [];
-        unset($_COOKIE['session_id']);
-        unset($_COOKIE['session_name']);
-        unset($_COOKIE['PHPSESSID']);
+        unset($_SESSION["admin_id"]);
+        unset($_SESSION["admin_name"]);
 
-        session_destroy();
 
         return $response
         ->withHeader('content-type', 'application/json')
