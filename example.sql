@@ -6,8 +6,8 @@ CREATE TABLE IF NOT EXISTS `users` (
                     `email` varchar(255) NOT NULL UNIQUE,
                     `password` varchar(255) NOT NULL,
                     `reset_code` int(6) DEFAULT NULL,
-                    `fails_left	` int(6) DEFAULT 3,
-                    `blocked` int(6) DEFAULT 'false',
+                    `fails_left` int(6) DEFAULT 3,
+                    `blocked` varchar(6) DEFAULT 'false',
                     PRIMARY KEY (`id`)
                     );
 
