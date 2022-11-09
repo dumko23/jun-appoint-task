@@ -1,42 +1,41 @@
-# Slim Framework 4 Skeleton Application
+# Slim Framework 4 / Twig Application
 
-[![Coverage Status](https://coveralls.io/repos/github/slimphp/Slim-Skeleton/badge.svg?branch=master)](https://coveralls.io/github/slimphp/Slim-Skeleton?branch=master)
 
-Use this skeleton application to quickly setup and start working on a new Slim Framework 4 application. This application uses the latest Slim 4 with Slim PSR-7 implementation and PHP-DI container implementation. It also uses the Monolog logger.
+## Login/Registration Page & Basic Admin panel
 
-This skeleton application was built for Composer. This makes setting up a new Slim Framework application quick and easy.
 
-## Install the Application
+To run this project as it is, the latest version of Docker and Composer should be installed on your machine.
 
-Run this command from the directory in which you want to install your new Slim Framework application. You will require PHP 7.4 or newer.
 
-```bash
-composer create-project slim/slim-skeleton [my-app-name]
+
+
+Preview: 
+
+
+## Docker
+Crete ```.env``` files in ```public``` folder, then copy content of the ```.env.example```. 
+Here you can manage your DB credentials, .
+
+
+In your project root run ```composer install```. This will load necessary packages from ```composer.json``` and install them to the ```vendor``` folder.
+
+
+Then you can run this commands:
 ```
-
-Replace `[my-app-name]` with the desired directory name for your new application. You'll want to:
-
-* Point your virtual host document root to your new application's `public/` directory.
-* Ensure `logs/` is web writable.
-
-To run the application in development, you can run these commands 
-
-```bash
-cd [my-app-name]
-composer start
-```
-
-Or you can use `docker-compose` to run the app with `docker`, so you can run these commands:
-```bash
-cd [my-app-name]
+docker-compose build
 docker-compose up -d
 ```
-After that, open `http://localhost:8080` in your browser.
+to build project container and start development server in detached mode.
 
-Run this command in the application directory to run the test suite
 
-```bash
-composer test
-```
+Finally, you can go to ```http://localhost/``` to enter project main page.
 
-That's it! Now go build something cool.
+
+## Other environments
+Copy content of the folder to your server root.
+
+
+Crete ```.env``` file in "```public```" folder, then copy content of the ```.env.example``` to ```.env``` file.
+
+
+Now, you can manage your DB credentials and  server settings to run this project.
