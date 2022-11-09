@@ -23,7 +23,16 @@ class UserController extends Controller
 
     public function doLogout(Request $request, Response $response): Response
     {
-        return $this->model->doLogout($request, $response);
+        $_SESSION['sessions'][substr(session_id(), 0, 6)] = [];
+        unset($_COOKIE['session_id']);
+        unset($_COOKIE['session_name']);
+        unset($_COOKIE['PHPSESSID']);
+
+        session_destroy();
+
+        return $response
+            ->withHeader('content-type', 'application/json')
+            ->withStatus(200);
     }
 
     public function doRegister(Request $request, Response $response): Response

@@ -36,20 +36,6 @@ class UserModel extends Model
             ->withStatus(403);
     }
 
-    public function doLogout(Request $request, Response $response): Response
-    {
-        $_SESSION = [];
-        unset($_COOKIE['session_id']);
-        unset($_COOKIE['session_name']);
-        unset($_COOKIE['PHPSESSID']);
-
-        session_destroy();
-
-        return $response
-            ->withHeader('content-type', 'application/json')
-            ->withStatus(200);
-    }
-
     public function doRegister(Request $request, Response $response): Response
     {
         $data = $request->getParsedBody()['request'];
