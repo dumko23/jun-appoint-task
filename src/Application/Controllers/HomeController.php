@@ -12,8 +12,6 @@ class HomeController extends Controller
     {
         $sessions = $request->getAttribute('session_list')['sessions'][substr(session_id(), 0, 6)];
 
-//        print_r($sessions);
-//        die();
         $data = [
             'script' => '../js/index.js',
             'name' => empty($sessions['user_name']) ? 'stranger' : $sessions['user_name'],

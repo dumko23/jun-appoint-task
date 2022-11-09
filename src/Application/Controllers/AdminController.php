@@ -42,10 +42,6 @@ class AdminController extends Controller
             'sessions' => $request->getAttribute('session_list')['sessions']
         ];
 
-//        session_start();
-//        if (!empty($_SESSION['admin_name'])) {
-//            $data['name'] = $_SESSION['admin_name'];
-//        }
         return $this->renderPage($request, $response, 'adminSessions.twig', $data);
     }
 
@@ -70,7 +66,7 @@ class AdminController extends Controller
 
     public function doLogout(Request $request, Response $response): Response
     {
-        $_SESSION = [];
+        $_SESSION['sessions'][substr(session_id(), 0, 6)] = [];
         unset($_COOKIE['session_id']);
         unset($_COOKIE['session_name']);
         unset($_COOKIE['PHPSESSID']);
