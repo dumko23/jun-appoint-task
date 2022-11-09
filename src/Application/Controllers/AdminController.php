@@ -71,7 +71,7 @@ class AdminController extends Controller
             'title' => 'Admin - Users',
             'name' => $session['admin_name'],
             'script' => '../js/admin.js',
-            'users' => isset($users[0]) ? $users[0] : ''
+            'users' => isset($users[0]) ? $users : ''
         ];
 
 
