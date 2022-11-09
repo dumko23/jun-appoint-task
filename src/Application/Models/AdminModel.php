@@ -33,7 +33,12 @@ class AdminModel extends Model
 
     public function getUsers()
     {
-        return $this->getData('id, name, email, fails_left, blocked', 'Users.users')['data'];
+        $result = $this->getData('id, name, email, fails_left, blocked', 'Users.users');
+        if (isset($result['data'])) {
+            return $result['data'];
+        } else {
+            return $result;
+        }
     }
 
     public function deleteUser(Request $request, Response $response): Response

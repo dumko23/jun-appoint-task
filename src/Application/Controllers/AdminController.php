@@ -48,11 +48,12 @@ class AdminController extends Controller
     public function adminUsers(Request $request, Response $response): Response
     {
         $session = $request->getAttribute('session_list');
+        $users = $this->getUsers();
         $data = [
             'title' => 'Admin - Users',
             'name' => $session['admin_name'],
             'script' => '../js/admin.js',
-            'users' => $this->getUsers()
+            'users' => isset($users[0]) ? $users[0] : ''
         ];
 
 
@@ -71,8 +72,8 @@ class AdminController extends Controller
 
 
         return $response
-        ->withHeader('content-type', 'application/json')
-        ->withStatus(200);
+            ->withHeader('content-type', 'application/json')
+            ->withStatus(200);
     }
 
     public function getUsers()
