@@ -28,7 +28,7 @@ class AdminModel extends Model
         unset($session['admin_name']);
         return $response
             ->withHeader('content-type', 'application/json')
-            ->withStatus(403);
+            ->withStatus(206);
     }
 
     public function getUsers()

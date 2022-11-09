@@ -16,10 +16,16 @@ function login() {
                 console.log(jqXHR.status);
                 if(jqXHR.status === 200){
                     window.location.replace("/admin/users");
+                } else if (jqXHR.status === 206) {
+                    $('#error-email-login').text('Failed to login');
                 }
             });
     }
 }
+
+$('#password, #email').on('focus', function(){
+    $('#error-email-login').text('');
+})
 
 $('#confirmLogin').on('click', login);
 
