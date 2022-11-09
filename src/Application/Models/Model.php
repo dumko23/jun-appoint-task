@@ -127,7 +127,7 @@ class Model
                 str_contains($rule, 'unique')
                 && isset($this->getData(
                         'id',
-                        'Users.users',
+                        $_ENV['DB_DATABASE'] . '.' . $_ENV['DB_USERS_TABLE'],
                         'where email = ',
                         $record[$fieldName]
                     )['data'][0])

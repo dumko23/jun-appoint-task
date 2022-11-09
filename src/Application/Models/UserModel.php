@@ -25,7 +25,7 @@ class UserModel extends Model
         $data = $request->getParsedBody()['request'];
         $validationResult = $this->validation(['email' => $data['email']], ['email' => 'required|maxlength:250|emailFormat|unique|']);
         if ($validationResult['result'] === true) {
-            $user = $this->getData('password, id, name, blocked', 'Users.users', 'where email = ', $data['email']);
+            $user = $this->getData('password, id, name, blocked', $_ENV['DB_DATABASE'] . '.' . $_ENV['DB_USERS_TABLE'], 'where email = ', $data['email']);
 
             if ($user['data'][0]['blocked'] === 'true') {
                 return $response
@@ -61,7 +61,7 @@ class UserModel extends Model
         if ($validationResult['result'] === true) {
             $data['password'] = password_hash($data['password'], PASSWORD_BCRYPT);
 
-            $user = $this->add($data, 'Users.users');
+            $user = $this->add($data, $_ENV['DB_DATABASE'] . '.' . $_ENV['DB_USERS_TABLE']);
             if (in_array('data', $user)) {
                 return $response
                     ->withHeader('content-type', 'application/json')
@@ -85,7 +85,7 @@ class UserModel extends Model
             ['reset_code' => $email['reset_code']],
             'email',
             ['email' => "{$email['email']}"],
-            'Users.users'
+            $_ENV['DB_DATABASE'] . '.' . $_ENV['DB_USERS_TABLE']
         );
         if (in_array('data', $result)) {
             $code = $email['reset_code'];
@@ -137,7 +137,7 @@ class UserModel extends Model
     {
         $user = $request->getParsedBody()['request'];
 
-        $record = $this->getData('reset_code, fails_left', 'Users.users', 'where email = ', $user['email']);
+        $record = $this->getData('reset_code, fails_left', $_ENV['DB_DATABASE'] . '.' . $_ENV['DB_USERS_TABLE'], 'where email = ', $user['email']);
 
         // Check if user has failed code-check 3 times
         if ($record['data'][0]['fails_left'] === 0) {
@@ -145,7 +145,7 @@ class UserModel extends Model
                 ['blocked' => 'true'],
                 'email',
                 ['email' => "{$user['email']}"],
-                'Users.users'
+                $_ENV['DB_DATABASE'] . '.' . $_ENV['DB_USERS_TABLE']
             );
             $response->getBody()->write(json_encode("fail on fails"));
 
@@ -163,7 +163,7 @@ class UserModel extends Model
                 ['fails_left' => $record['data'][0]['fails_left'] - 1],
                 'email',
                 ['email' => "{$user['email']}"],
-                'Users.users'
+                $_ENV['DB_DATABASE'] . '.' . $_ENV['DB_USERS_TABLE']
             );
 
             return $response
@@ -176,7 +176,7 @@ class UserModel extends Model
     {
         $user = $request->getParsedBody()['request'];
 
-        $record = $this->getData('reset_code, fails_left', 'Users.users', 'where email = ', $user['email']);
+        $record = $this->getData('reset_code, fails_left', $_ENV['DB_DATABASE'] . '.' . $_ENV['DB_USERS_TABLE'], 'where email = ', $user['email']);
 
 
         // Check if user has failed code-check 3 times
@@ -185,7 +185,7 @@ class UserModel extends Model
                 ['blocked' => 'true'],
                 'email',
                 ['email' => "{$user['email']}"],
-                'Users.users'
+                $_ENV['DB_DATABASE'] . '.' . $_ENV['DB_USERS_TABLE']
             );
             return $response
                 ->withHeader('content-type', 'application/json')
@@ -202,7 +202,7 @@ class UserModel extends Model
                 ],
                 'email',
                 ['email' => "{$user['email']}"],
-                'Users.users'
+                $_ENV['DB_DATABASE'] . '.' . $_ENV['DB_USERS_TABLE']
             );
 
             return $response
@@ -213,7 +213,7 @@ class UserModel extends Model
                 ['fails_left' => $record['data'][0]['fails_left'] - 1],
                 'email',
                 ['email' => "{$user['email']}"],
-                'Users.users'
+                $_ENV['DB_DATABASE'] . '.' . $_ENV['DB_USERS_TABLE']
             );
             return $response
                 ->withHeader('content-type', 'application/json')

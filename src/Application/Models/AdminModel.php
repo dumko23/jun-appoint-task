@@ -12,7 +12,7 @@ class AdminModel extends Model
         $data = $request->getParsedBody()['request'];
         $session = $request->getAttribute('session_list');
 
-        $admin = $this->getData('password, id, name', 'Users.admin_table', 'where email = ', $data['email']);
+        $admin = $this->getData('password, id, name', $_ENV['DB_DATABASE'] . '.' . $_ENV['DB_ADMIN_TABLE'], 'where email = ', $data['email']);
 
         if (password_verify($data['password'], $admin['data'][0]['password'])) {
 
