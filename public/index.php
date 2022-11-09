@@ -22,6 +22,11 @@ $dotenv->load();
 
 // Instantiate PHP-DI ContainerBuilder
 $containerBuilder = new ContainerBuilder();
+session_save_path(__DIR__ . '/../sessions');
+
+//$handler = new SessionHandler();
+//
+//session_set_save_handler($handler, true);
 
 if (false) { // Should be set to true in production
     $containerBuilder->enableCompilation(__DIR__ . '/../var/cache');

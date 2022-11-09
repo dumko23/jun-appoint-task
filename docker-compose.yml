@@ -18,6 +18,7 @@ services:
         volumes:
             - .:/var/www
             - logs:/var/www/logs
+            - ./sessions:/var/www/sessions
         links:
             - mysql
     mysql:

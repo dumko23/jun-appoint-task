@@ -35,11 +35,31 @@ class AdminController extends Controller
     {
         $session = $request->getAttribute('session_list');
 
+        $file = scandir(__DIR__ . '/../../../sessions');
+        $sessionsList = [];
+        foreach ($file as $value) {
+            if ($value === '.' || $value === '..') {
+                continue;
+            }
+
+            $sessionsList[] = unserialize(
+                substr(file_get_contents(__DIR__ . '/../../../sessions/' . $value), 9)
+            );
+        }
+
+
+        $newSessionList = [];
+        foreach ($sessionsList as $value){
+            $newSessionList[array_key_first($value)] = $value[array_key_first($value)];
+        }
+        print_r($newSessionList);
+        die();
+
         $data = [
             'name' => $session['admin_name'],
             'title' => 'Admin - Sessions',
             'script' => '../js/admin.js',
-            'sessions' => $request->getAttribute('session_list')['sessions']
+            'sessions' => $newSessionList
         ];
 
         return $this->renderPage($request, $response, 'adminSessions.twig', $data);
