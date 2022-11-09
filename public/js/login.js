@@ -15,19 +15,20 @@ function formRegister() {
 
 function login() {
     let request = formLogin();
-    $.post("/api/userLogin", {'request': request}, function (data, textStatus, jqXHR) {
+    $.post("/api/userLogin", {'request': request}, function (data) {
         console.log('login..');
+    }).always(function(jqXHR){
         if (jqXHR.status === 200) {
             window.location.replace("/");
         } else if (jqXHR.status === 206) {
             $('#error-email-login').text(data.error.email);
         }
-    })
+    });
 }
 
 $('#confirmLogin').on('click', function () {
-    login()
-})
+    login();
+});
 
 $('#registerConfirm').on('click', function () {
 
@@ -37,8 +38,10 @@ $('#registerConfirm').on('click', function () {
         return false;
     }
     let request = formRegister();
-    $.post("/api/userRegister", {'request': request}, function (data, textStatus, jqXHR) {
+    $.post("/api/userRegister", {'request': request}, function (data) {
         console.log('register..');
+        console.log(JSON.parse(data))
+    }).always(function(jqXHR){
         if (jqXHR.status === 200) {
             $('#login').tab('show');
             $('#register').removeClass("active");
