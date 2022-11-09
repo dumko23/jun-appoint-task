@@ -1,25 +1,10 @@
 {
-  "name": "slim/slim-skeleton",
-  "description": "A Slim Framework skeleton application for rapid development",
+  "description": "A Slim Framework / Twig application ",
   "keywords": [
     "microframework",
     "rest",
     "router",
     "psr7"
-  ],
-  "homepage": "http://github.com/slimphp/Slim-Skeleton",
-  "license": "MIT",
-  "authors": [
-    {
-      "name": "Josh Lockhart",
-      "email": "info@joshlockhart.com",
-      "homepage": "http://www.joshlockhart.com/"
-    },
-    {
-      "name": "Pierre Berube",
-      "email": "pierre@lgse.com",
-      "homepage": "http://www.lgse.com/"
-    }
   ],
   "require": {
     "php": "^8.0",
@@ -39,7 +24,7 @@
   "require-dev": {
     "jangregor/phpstan-prophecy": "^1.0.0",
     "phpspec/prophecy-phpunit": "^2.0",
-    "phpstan/extension-installer": "^1.1.0",
+    "phpstan/extension-installer": "^1.1.0"
   },
   "config": {
     "allow-plugins": {
@@ -53,13 +38,7 @@
       "App\\": "src/"
     }
   },
-  "autoload-dev": {
-    "psr-4": {
-      "Tests\\": "tests/"
-    }
-  },
   "scripts": {
-    "start": "php -S localhost:8080 -t public",
-    "test": "phpunit"
+    "start": "php -S localhost:8080 -t public"
   }
 }
