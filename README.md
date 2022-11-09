@@ -7,6 +7,7 @@
 To run this project as it is, the latest version of Docker and Composer should be installed on your machine.
 
 
+Also, take a look at example.sql to know for a DB structure.
 
 
 Preview: 
