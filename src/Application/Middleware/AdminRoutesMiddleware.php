@@ -29,7 +29,8 @@ class AdminRoutesMiddleware implements Middleware
             'acceptCode',
             'resetPass',
             'adminLogin',
-            'userLogout'
+            'userLogout',
+            'notFound'
         ];
 
         $session = $request->getAttribute('session_list');
@@ -38,10 +39,10 @@ class AdminRoutesMiddleware implements Middleware
         if (empty($session['admin_id']) && (!in_array($routeName, $publicRoutesArray))) {
             // Create a redirect for a named route
             $routeParser = $routeContext->getRouteParser();
-            $url = $routeParser->urlFor('adminAuth');
+            $url = $routeParser->urlFor('notFound');
 
             $response = new \Slim\Psr7\Response();
-            return $response->withStatus(401);
+            return $response->withHeader('Location', $url)->withStatus(302);
         } else {
             $request = $request->withAttribute('session_list', $session);
 

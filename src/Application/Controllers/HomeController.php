@@ -34,7 +34,6 @@ class HomeController extends Controller
             ];
             return $this->renderPage($request, $response, 'authenticationPage.twig', $data);
         } else {
-
             return $response->withHeader('Location', '/')->withStatus(302);
         }
 
@@ -47,5 +46,13 @@ class HomeController extends Controller
             'script' => '../js/passwordReset.js'
         ];
         return $this->renderPage($request, $response, 'resetPass.twig', $data);
+    }
+
+    public function notFound(Request $request, Response $response): Response
+    {
+        $data = [
+            'title' => '404 Page',
+        ];
+        return $this->renderPage($request, $response, '_404.twig', $data);
     }
 }

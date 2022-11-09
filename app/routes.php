@@ -26,11 +26,8 @@ return function (App $app) {
 
     $app->get('/admin/sessions', '\App\Application\Controllers\AdminController:adminSessions')
         ->setName('adminSessions');
-
-
     $app->get('/admin/users', '\App\Application\Controllers\AdminController:adminUsers')
         ->setName('adminUsers');
-
 
     $app->group('/api', function (Group $group) {
         $group->post('/userLogin', '\App\Application\Controllers\UserController:doLogin')
@@ -55,4 +52,7 @@ return function (App $app) {
         $group->post('/deleteUser', '\App\Application\Controllers\AdminController:deleteUser')
             ->setName('deleteUser');
     });
+
+    $app->get('/notFound', '\App\Application\Controllers\HomeController:notFound')
+        ->setName('notFound');
 };
