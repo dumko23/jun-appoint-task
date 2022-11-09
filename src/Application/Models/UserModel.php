@@ -10,47 +10,71 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 
 class UserModel extends Model
 {
+    public function rules(): array
+    {
+        return [
+            'name' => 'required|maxlength:30|minlength:2|',
+            'password' => 'required|maxlength:30|minlength:8|',
+            'email' => 'required|maxlength:250|emailFormat|unique|',
+        ];
+    }
+
+
     public function doLogin(Request $request, Response $response): Response
     {
         $data = $request->getParsedBody()['request'];
+        $validationResult = $this->validation(['email' => $data['email']], ['email' => 'required|maxlength:250|emailFormat|unique|']);
+        if ($validationResult['result'] === true) {
+            $user = $this->getData('password, id, name, blocked', 'Users.users', 'where email = ', $data['email']);
 
-        $user = $this->getData('password, id, name, blocked', 'Users.users', 'where email = ', $data['email']);
+            if ($user['data'][0]['blocked'] === 'true') {
+                return $response
+                    ->withHeader('content-type', 'application/json')
+                    ->withStatus(403);
+            }
 
-        if ($user['data'][0]['blocked'] === 'true') {
-            return $response
-                ->withHeader('content-type', 'application/json')
-                ->withStatus(403);
+            if (password_verify($data['password'], $user['data'][0]['password'])) {
+                $_SESSION['sessions'][substr(session_id(), 0, 6)]["user_id"] = $user['data'][0]['id'];
+                $_SESSION['sessions'][substr(session_id(), 0, 6)]["user_name"] = $user['data'][0]['name'];
+
+                return $response
+                    ->withHeader('content-type', 'application/json')
+                    ->withStatus(200);
+            }
         }
-
-        if (password_verify($data['password'], $user['data'][0]['password'])) {
-            $_SESSION['sessions'][$_COOKIE['session_name']]["user_id"] = $user['data'][0]['id'];
-            $_SESSION['sessions'][$_COOKIE['session_name']]["user_name"] = $user['data'][0]['name'];
-
-
-            return $response
-                ->withHeader('content-type', 'application/json')
-                ->withStatus(200);
-        }
+        $response->getBody()->write(json_encode([
+            'error' => [
+                'email' => 'Wrong email or password'
+            ]
+        ]));
         return $response
             ->withHeader('content-type', 'application/json')
-            ->withStatus(403);
+            ->withStatus(206);
     }
 
     public function doRegister(Request $request, Response $response): Response
     {
         $data = $request->getParsedBody()['request'];
-        $data['password'] = password_hash($data['password'], PASSWORD_BCRYPT);
+        $data['name'] = htmlspecialchars(strip_tags(trim($data['name'])));
+        $validationResult = $this->validation($data, $this->rules());
 
-        $user = $this->add($data, 'Users.users');
-        if (in_array('data', $user)) {
-            return $response
-                ->withHeader('content-type', 'application/json')
-                ->withStatus(200);
+        if ($validationResult['result'] === true) {
+            $data['password'] = password_hash($data['password'], PASSWORD_BCRYPT);
+
+            $user = $this->add($data, 'Users.users');
+            if (in_array('data', $user)) {
+                return $response
+                    ->withHeader('content-type', 'application/json')
+                    ->withStatus(200);
+            }
+            $validationResult[] = $user;
         }
-        $response->getBody()->write(json_encode($user));
+
+
+        $response->getBody()->write(json_encode($validationResult));
         return $response
             ->withHeader('content-type', 'application/json')
-            ->withStatus(403);
+            ->withStatus(206);
     }
 
     public function sendMail(Request $request, Response $response): Response
@@ -174,7 +198,7 @@ class UserModel extends Model
                 [
                     'password' => $user['password'],
                     'fails_left' => 3,
-                    'reset_code' => NULL
+                    'reset_code' => null
                 ],
                 'email',
                 ['email' => "{$user['email']}"],

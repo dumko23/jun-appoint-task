@@ -23,12 +23,8 @@ class UserController extends Controller
 
     public function doLogout(Request $request, Response $response): Response
     {
-        $_SESSION['sessions'][substr(session_id(), 0, 6)] = [];
-        unset($_COOKIE['session_id']);
-        unset($_COOKIE['session_name']);
-        unset($_COOKIE['PHPSESSID']);
-
-        session_destroy();
+        unset($_SESSION['sessions'][substr(session_id(), 0, 6)]["user_id"]);
+        unset($_SESSION['sessions'][substr(session_id(), 0, 6)]["user_name"]);
 
         return $response
             ->withHeader('content-type', 'application/json')

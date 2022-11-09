@@ -95,25 +95,53 @@ class Model
         foreach ($rules as $fieldName => $rule) {
             if (str_contains($rule, 'required') && $record[$fieldName] === '') {
                 $errors = $this->addError($errors, $fieldName, 'Input is empty!');
-            } elseif (str_contains($rule, 'maxlength')) {
+            }
+            if (str_contains($rule, 'maxlength')) {
                 preg_match('/(?<=maxlength:)(\d+)(?=\|)/U', $rule, $matches, PREG_OFFSET_CAPTURE);
-                if (strlen($matches[0][0]) > $rule['max']) {
+                if (strlen($record[$fieldName]) > intval($matches[0][0])) {
+
                     $errors = $this->addError(
                         $errors,
                         $fieldName,
                         "Input length should be maximum {$matches[0][0]} symbols!"
                     );
                 }
-            } elseif (str_contains($rule, 'nullRole') && $record[$fieldName] === '') {
-                $errors = $this->addError($errors, $fieldName, 'User role is not selected!');
-            } elseif (str_contains($rule, 'rightRole') && !in_array($record[$fieldName], ['admin', 'user'])) {
-                $errors = $this->addError($errors, $fieldName, 'Invalid role provided!');
+            }
+            if (str_contains($rule, 'minlength')) {
+                preg_match('/(?<=minlength:)(\d+)(?=\|)/U', $rule, $matches, PREG_OFFSET_CAPTURE);
+                if (strlen($record[$fieldName]) < intval($matches[0][0])) {
+                    $errors = $this->addError(
+                        $errors,
+                        $fieldName,
+                        "Input length should be minimum {$matches[0][0]} symbols!"
+                    );
+                }
+            }
+            if (
+                str_contains($rule, 'emailFormat')
+                && filter_var($record[$fieldName], FILTER_VALIDATE_EMAIL) === false
+            ) {
+                $errors = $this->addError($errors, $fieldName, 'Incorrect email format!');
+            }
+            if (
+                str_contains($rule, 'unique')
+                && isset($this->getData(
+                        'id',
+                        'Users.users',
+                        'where email = ',
+                        $record[$fieldName]
+                    )['data'][0])
+            ) {
+                $errors = $this->addError($errors, $fieldName, 'This email is already registered!');
             }
         }
         if (count($errors) === 0) {
-            return true;
+            return [
+                'result' => true
+            ];
         } else {
             $result = [
+                'result' => false,
                 'error' => $errors
             ];
             unset($errors);
@@ -138,5 +166,4 @@ class Model
                 $searchedStatement
             );
     }
-
 }

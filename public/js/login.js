@@ -1,13 +1,11 @@
-function formLogin()
-{
+function formLogin() {
     return {
         'email': $('#email').val(),
         'password': $('#password').val()
     }
 }
 
-function formRegister()
-{
+function formRegister() {
     return {
         'email': $('#emailRegister').val(),
         'name': $('#nameRegister').val(),
@@ -15,18 +13,16 @@ function formRegister()
     }
 }
 
-function login()
-{
+function login() {
     let request = formLogin();
-    $.post("/api/userLogin", {'request': request}, function (data) {
-        console.log('login success');
-        console.log(JSON.parse(data))
-    }).always(function (jqXHR) {
-        console.log(jqXHR.status);
+    $.post("/api/userLogin", {'request': request}, function (data, textStatus, jqXHR) {
+        console.log('login..');
         if (jqXHR.status === 200) {
             window.location.replace("/");
+        } else if (jqXHR.status === 206) {
+            $('#error-email-login').text(data.error.email);
         }
-    });
+    })
 }
 
 $('#confirmLogin').on('click', function () {
@@ -34,22 +30,68 @@ $('#confirmLogin').on('click', function () {
 })
 
 $('#registerConfirm').on('click', function () {
-    if ($('#passwordRegister').val() === $('#passwordRegisterConfirm').val()) {
-        let request = formRegister();
-        $.post("/api/userRegister", {'request': request}, function (data) {
-            console.log('login success');
-            console.log(JSON.parse(data))
-        }).always(function (jqXHR) {
-            console.log(jqXHR.status);
-            if (jqXHR.status === 200) {
-                $('#login').tab('show');
-                $('#register').removeClass("active");
-                $('#register-tab').removeClass("active");
-                $('#login-tab').addClass("active");
-            }
-        });
-    } else {
-        console.log("password doesn't match");
+
+
+
+    if (validation()) {
         return false;
     }
+    let request = formRegister();
+    $.post("/api/userRegister", {'request': request}, function (data, textStatus, jqXHR) {
+        console.log('register..');
+        if (jqXHR.status === 200) {
+            $('#login').tab('show');
+            $('#register').removeClass("active");
+            $('#register-tab').removeClass("active");
+            $('#login-tab').addClass("active");
+        } else if (jqXHR.status === 206) {
+            $('#error-email').text(data.error.email);
+            $('#error-name').text(data.error.name);
+            $('#error-password').text(data.error.password);
+        }
+    })
+})
+
+function validation(){
+    let error = false;
+    if (!($('#passwordRegister').val() === $('#passwordRegisterConfirm').val())) {
+        $('#error-password-confirm').text("Password doesn't match");
+        error = true;
+    }
+    if ($('#nameRegister').val() === '') {
+        $('#error-name').text("Input is empty");
+        error = true;
+    }
+    if ($('#emailRegister').val() === '') {
+        $('#error-email').text("Input is empty");
+        error = true;
+    }
+    if($('#passwordRegister').val() === ''){
+        $('#error-password').text("Input is empty");
+        error = true;
+    }
+    return error;
+}
+
+$('#emailRegister').on('focus', function () {
+    $('#error-email').text('');
+})
+
+$('#nameRegister').on('focus', function () {
+    $('#error-name').text('');
+})
+$('#passwordRegister').on('focus', function () {
+    $('#error-password').text('');
+})
+
+$('#passwordRegisterConfirm').on('focus', function () {
+    $('#error-password-confirm').text('');
+})
+
+$('#email').on('focus', function () {
+    $('#error-email-login').text('');
+})
+
+$('#password').on('focus', function () {
+    $('#error-email-login').text('');
 })

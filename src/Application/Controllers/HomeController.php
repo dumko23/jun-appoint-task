@@ -25,7 +25,7 @@ class HomeController extends Controller
 
     public function loginPage(Request $request, Response $response): Response
     {
-        $sessions = $request->getAttribute('session_list')['sessions'][$_COOKIE['session_name']];
+        $sessions = $request->getAttribute('session_list')['sessions'][substr(session_id(), 0, 6)];
         if (empty($sessions['user_name'])) {
             $data = [
                 'title' => 'Home - Auth',

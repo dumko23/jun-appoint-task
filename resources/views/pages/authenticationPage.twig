@@ -27,19 +27,23 @@
                     <div class="mb-3">
                         <label for="emailRegister" class="form-label">Email</label>
                         <input type="email" class="form-control" id="emailRegister" placeholder="name@example.com"
-                               required>
+                               maxlength="250" required>
+                        <span id="error-email" class="text-danger" style="font-size: 0.8rem"></span>
                     </div>
                     <div class="mb-3">
                         <label for="nameRegister" class="form-label">Name</label>
-                        <input type="text" class="form-control" id="nameRegister" placeholder="General Kenobi" required>
+                        <input type="text" class="form-control" id="nameRegister" placeholder="General Kenobi" maxlength="30" required>
+                        <span id="error-name" class="text-danger" style="font-size: 0.8rem"></span>
                     </div>
                     <div class="mb-3">
                         <label for="passwordRegister" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="passwordRegister" required>
+                        <input type="password" class="form-control" id="passwordRegister" maxlength="30" required>
+                        <span id="error-password" class="text-danger" style="font-size: 0.8rem"></span>
                     </div>
                     <div class="mb-3">
                         <label for="passwordRegisterConfirm" class="form-label">Confirm Password</label>
-                        <input type="password" class="form-control" id="passwordRegisterConfirm" required>
+                        <input type="password" class="form-control" id="passwordRegisterConfirm" maxlength="30" required>
+                        <span id="error-password-confirm" class="text-danger" style="font-size: 0.8rem"></span>
                     </div>
                     <div class="">
                         <button class="btn btn-primary" type="submit" id="registerConfirm">Register</button>
