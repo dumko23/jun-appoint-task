@@ -10,7 +10,14 @@ To run this project as it is, the latest version of Docker and Composer should b
 Also, take a look at example.sql to know for a DB structure.
 
 
-Preview: 
+Preview: https://slim-twig-app.000webhostapp.com/
+
+
+Preview admin roots credentials:
+```
+Email: admin@slimtest.com
+Password: MyAdminPass
+```
 
 
 ## Docker
