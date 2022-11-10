@@ -31,33 +31,11 @@ class SessionsMiddleware implements Middleware
         setcookie('session_id', session_id(), time() + 1800);
         setcookie('session_name', substr(session_id(), 0, 6), time() + 1800);
 
-
-//            $routeContext = RouteContext::fromRequest($request);
-//            $route = $routeContext->getRoute();
-//            $routeName = $route->getName();
-//            if($routeName === 'userLogout'){
-//
-//                $_SESSION = [];
-////        unset($_SESSION['sessions'][substr(session_id(), 0, 6)]);
-//                unset($_COOKIE['session_id']);
-//                unset($_COOKIE['session_name']);
-//                unset($_COOKIE['PHPSESSID']);
-//                setcookie('session_id', '', -1);
-//                setcookie('session_name', '', -1);
-//                setcookie('PHPSESSID', '', -1);
-//                setcookie('logout', 'yes', time() + 300);
-//
-//
-//                session_destroy();
-//                session_start();
-//                session_create_id();
-//                $_SESSION['sessions'][substr(session_id(), 0, 6)]['session_name'] = substr(session_id(), 0, 6);
-//                $_SESSION['sessions'][substr(session_id(), 0, 6)]['session_id'] = session_id();
-//                $_SESSION['sessions'][substr(session_id(), 0, 6)]['ip'] = $request->getAttribute('ip_address');
-//                $_SESSION['sessions'][substr(session_id(), 0, 6)]['user_agent'] = $request->getHeader('User-Agent')[0];
-//                setcookie('session_name', substr(session_id(), 0, 6), time() + 1800);
-//                setcookie('session_id', session_id(), time() + 1800);
-//            }
+        if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 1800)) {
+            session_unset();
+            session_destroy();
+        }
+        $_SESSION['LAST_ACTIVITY'] = time();
 
 
 
