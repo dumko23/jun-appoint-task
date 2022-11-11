@@ -41,10 +41,16 @@ class AdminController extends Controller
             if ($value === '.' || $value === '..') {
                 continue;
             }
-
-            $sessionsList[] = unserialize(
+            $session = unserialize(
                 substr(file_get_contents(__DIR__ . '/../../../sessions/' . $value), 9)
             );
+            if (isset($session['LAST_ACTIVITY']) && (time() - $session['LAST_ACTIVITY'] > 1800)) {
+                unlink(__DIR__ . '/../../../sessions/' . $value);
+                continue;
+            }
+            $sessionsList[] = $session;
+
+
         }
 
 
