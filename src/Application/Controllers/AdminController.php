@@ -33,7 +33,7 @@ class AdminController extends Controller
 
     public function adminSessions(Request $request, Response $response): Response
     {
-        $session = $request->getAttribute('session_list');
+        $sessions = $request->getAttribute('session_list');
 
         $file = scandir(__DIR__ . '/../../../sessions');
         $sessionsList = [];
@@ -49,18 +49,14 @@ class AdminController extends Controller
                 continue;
             }
             $sessionsList[] = $session;
-
-
         }
-
 
         $newSessionList = [];
         foreach ($sessionsList as $value){
             $newSessionList[array_key_first($value)] = $value[array_key_first($value)];
         }
-
         $data = [
-            'name' => $session['admin_name'],
+            'name' => $sessions['admin_name'],
             'title' => 'Admin - Sessions',
             'script' => '../js/admin.js',
             'sessions' => $newSessionList
