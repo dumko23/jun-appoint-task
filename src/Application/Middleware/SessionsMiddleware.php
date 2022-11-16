@@ -23,7 +23,7 @@ class SessionsMiddleware implements Middleware
             $session = unserialize(
                 substr(file_get_contents(__DIR__ . '/../../../sessions/' . $value), 9)
             );
-            if (isset($session['LAST_ACTIVITY']) && (time() - $session['LAST_ACTIVITY'] > 1800)) {
+            if (isset($session[array_key_first($session)]['LAST_ACTIVITY']) && (time() - $session[array_key_first($session)]['LAST_ACTIVITY'] > 1800)) {
                 unlink(__DIR__ . '/../../../sessions/' . $value);
             }
         }
