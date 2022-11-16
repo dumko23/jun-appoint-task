@@ -55,6 +55,11 @@ class AdminController extends Controller
         foreach ($sessionsList as $value){
             $newSessionList[array_key_first($value)] = $value[array_key_first($value)];
         }
+
+        foreach ($newSessionList as $key => $value){
+            $newSessionList[$key]['LAST_ACTIVITY'] = date("Y-m-d H:i:s", $value['LAST_ACTIVITY'] + 1800);
+        }
+
         $data = [
             'name' => $sessions['admin_name'],
             'title' => 'Admin - Sessions',

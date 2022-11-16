@@ -23,6 +23,7 @@ $dotenv->load();
 // Instantiate PHP-DI ContainerBuilder
 $containerBuilder = new ContainerBuilder();
 session_save_path(__DIR__ . '/../sessions');
+date_default_timezone_set('Europe/Kyiv');
 
 //$handler = new SessionHandler();
 //
